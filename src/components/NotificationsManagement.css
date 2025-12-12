@@ -1,0 +1,258 @@
+.notifications-management {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.notifications-header {
+  margin-bottom: 2rem;
+}
+
+.notifications-header h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 28px;
+  color: #1f2937;
+}
+
+.notifications-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.status-message {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+.status-message.success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.status-message.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.send-notification-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.send-notification-section h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 20px;
+  color: #1f2937;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s;
+}
+
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.char-count {
+  position: absolute;
+  right: 8px;
+  bottom: -20px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.send-notification-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.send-notification-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.send-notification-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.notifications-list-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notifications-list-section h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 20px;
+  color: #1f2937;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.notifications-table {
+  overflow-x: auto;
+}
+
+.notifications-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.notifications-table thead {
+  background: #f9fafb;
+}
+
+.notifications-table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  font-size: 14px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.notifications-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.message-cell {
+  max-width: 400px;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+.date-cell {
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.read-count-cell {
+  text-align: center;
+}
+
+.read-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #dbeafe;
+  color: #1e40af;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.actions-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 16px;
+}
+
+.delete-btn:hover {
+  background: #fca5a5;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .notifications-management {
+    padding: 1rem;
+  }
+
+  .send-notification-section,
+  .notifications-list-section {
+    padding: 1.5rem;
+  }
+
+  .notifications-table {
+    font-size: 13px;
+  }
+
+  .notifications-table th,
+  .notifications-table td {
+    padding: 8px;
+  }
+
+  .message-cell {
+    max-width: 200px;
+  }
+
+  .send-notification-btn {
+    width: 100%;
+  }
+}

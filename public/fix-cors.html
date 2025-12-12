@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fix Wasabi CORS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+    .info-box {
+      background: #f0f4ff;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      margin-bottom: 20px;
+    }
+    .error-box {
+      background: #ffe0e0;
+      border-left-color: #e74c3c;
+      color: #c0392b;
+    }
+    .success-box {
+      background: #e0ffe0;
+      border-left-color: #27ae60;
+      color: #196f3d;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 20px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .steps {
+      margin: 20px 0;
+    }
+    .step {
+      padding: 10px;
+      margin: 10px 0;
+      background: #f9f9f9;
+      border-radius: 5px;
+      border-left: 3px solid #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔧 Fix Wasabi Video CORS Error</h1>
+    
+    <div class="info-box">
+      <strong>🎯 Problem:</strong> Videos showing <strong>403 Forbidden</strong> error<br>
+      <strong>✅ Solution:</strong> Configure CORS on Wasabi bucket
+    </div>
+
+    <div class="steps">
+      <h3>What this will do:</h3>
+      <div class="step">1️⃣ Configure CORS rules on Wasabi bucket</div>
+      <div class="step">2️⃣ Set bucket policy for public read access</div>
+      <div class="step">3️⃣ Allow videos to play from your website</div>
+    </div>
+
+    <button id="fixButton" onclick="fixCORS()">🚀 Fix CORS Now</button>
+    
+    <div id="result" style="margin-top: 20px;"></div>
+  </div>
+
+  <script>
+    async function fixCORS() {
+      const button = document.getElementById('fixButton');
+      const resultDiv = document.getElementById('result');
+      
+      button.disabled = true;
+      button.textContent = '⏳ Configuring CORS...';
+      resultDiv.innerHTML = '<div class="info-box">Please wait...</div>';
+      
+      try {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+          throw new Error('No authentication token found. Please log in first.');
+        }
+        
+        const response = await fetch('http://localhost:5000/api/resources/configure-cors', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          resultDiv.innerHTML = `
+            <div class="info-box success-box">
+              <h3>✅ Success!</h3>
+              <p>${data.message}</p>
+              <br>
+              <strong>Next Steps:</strong>
+              <ol>
+                <li>Go back to your admin interface</li>
+                <li>Upload a NEW video (or re-upload existing one)</li>
+                <li>Try playing the video from student dashboard</li>
+              </ol>
+            </div>
+          `;
+          button.textContent = '✅ CORS Configured!';
+        } else {
+          throw new Error(data.message || 'Failed to configure CORS');
+        }
+      } catch (error) {
+        resultDiv.innerHTML = `
+          <div class="info-box error-box">
+            <h3>❌ Error</h3>
+            <p>${error.message}</p>
+            <br>
+            <strong>Troubleshooting:</strong>
+            <ul>
+              <li>Make sure you're logged in as admin</li>
+              <li>Check that backend server is running</li>
+              <li>Check browser console for detailed errors</li>
+            </ul>
+          </div>
+        `;
+        button.disabled = false;
+        button.textContent = '🔄 Try Again';
+        console.error('CORS configuration error:', error);
+      }
+    }
+  </script>
+</body>
+</html>
